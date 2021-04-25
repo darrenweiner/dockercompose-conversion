@@ -1,0 +1,22 @@
+version: '3'
+services:
+  wordpress:
+    image: wordpress:php7.3
+    volumes:
+      - /var/www/html
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      MYSQL_ROOT_PASSWORD: rootpass
+      WORDPRESS_DB_NAME: dbname
+      WORDPRESS_DB_USER: username
+      WORDPRESS_DB_PASSWORD: userpass
+      WORDPRESS_TABLE_PREFIX: wp_
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - /etc/nginx/conf.d
+      - /var/www/html
+    ports:
+      - 80
+    links:
+      - wordpress
